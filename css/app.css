@@ -1,0 +1,24 @@
+body {
+  min-height: 2000px;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+
+.content-top {
+  margin-top: 80px;
+}
+
+.btn-size {
+  width: 100px;
+  height: 80px;
+}
+
+.btn-margin {
+  margin-left: 15px;
+}
+
+.content {
+  margin-top: 20px;
+}
