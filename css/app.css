@@ -22,3 +22,17 @@ body {
 .content {
   margin-top: 20px;
 }
+
+.info {
+  margin-top: 10px;
+}
+
+.info>span {
+  margin-right: 5px;
+}
+
+.location {
+  position: relative;
+  top: -23px;
+  right: -6px;
+}

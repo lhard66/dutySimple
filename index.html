@@ -35,10 +35,18 @@
   </nav>
   <div id="app" class="container content-top">
     <div class="row">
-      <div class="col-md-8">
-        <select multiple class="form-control" v-model="selmembers">
-          <option v-for="item in members" :id="item.id">{{item.name}}</option>
-        </select>
+      <div class="col-md-7">
+        <!-- <select multiple class="form-control" v-model="selmembers">
+          <option v-for="item in members" :id="item.id">
+            {{item.name}}，已值日{{item.dutytimes}}次
+          </option>
+        </select> -->
+        <label class="checkbox-inline" v-for="item in members" :id="item.id">
+          <input type="checkbox" :id="item.id" :value="item.name" v-model="selmembers"> {{item.name}}({{item.dutytimes}})
+        </label>
+        <div class="info">
+          <span class="label label-primary" v-for="name in selmembers">{{name}}</span>
+        </div>
       </div>
       <div class="col-md-2">
         <button type="button" class="btn btn-success btn-size" @click="addMember">添加</button>
@@ -49,10 +57,11 @@
         <div class="panel panel-default" v-for="item in company">
           <div class="panel-heading">
             <h3 class="panel-title">{{item.date | dutydate}}</h3>
+            <button type="button" class="close location" @click="remove(item.id)"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
           </div>
           <div class="panel-body">
             <button class="btn btn-primary btn-margin" type="button" v-for="name in item.members">
-              {{name}}<span class="badge">4</span>
+              {{name}}
             </button>
           </div>
         </div>
@@ -61,39 +70,57 @@
   </div>
   <script src="js/app.js"></script>
   <script>
-  var dataJson = [{
-    "date": "1483433556965",
-    "members": ["李三", "李四", "王五"]
-  }, {
-    "date": "1483435015527",
-    "members": ["李三", "王五"]
-  }];
+  var dataJson = [];
   var staff = [{
     "id": 1,
-    "name": "张三"
+    "name": "张三",
+    "dutytimes": 5
   }, {
     "id": 2,
-    "name": "李四"
+    "name": "李四",
+    "dutytimes": 0
   }, {
     "id": 3,
-    "name": "王五"
+    "name": "王五",
+    "dutytimes": 3
+  }, {
+    "id": 4,
+    "name": "田六",
+    "dutytimes": 2
   }];
   var chinaWeek = ['日', '一', '二', '三', '四', '五', '六'];
+  var storage = window.localStorage;
+  var getId = function() {
+    var random = parseInt(Math.random() * 1000);
+    return '' + Date.now() + random;
+  }
 
   var vm = new Vue({
     el: '#app',
     data: {
-      company: dataJson,
+      company: storage['duty_company'] ? JSON.parse(storage['duty_company']) : [],
       members: staff,
       selmembers: []
     },
     methods: {
+      save: function() {
+        storage['duty_company'] = JSON.stringify(this.company);
+      },
       addMember: function() {
-        //以数据为中心的操作。
         this.company.unshift({
+          "id": getId(),
           "date": Date.now(),
           "members": this.selmembers
-        })
+        });
+        this.save();
+      },
+      remove: function(id) {
+        this.company.forEach(function(element, index) {
+          console.log(this);
+          if (id == element.id) {
+            this.company.splice(index, 1);
+          }
+        }.bind(this));
       }
     },
     filters: {
