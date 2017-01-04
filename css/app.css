@@ -10,9 +10,11 @@ body {
   margin-top: 80px;
 }
 
-.btn-size {
-  width: 100px;
-  height: 80px;
+.btn-add {
+  width: 120px;
+  height: 60px;
+  position: relative;
+  right: -44px;
 }
 
 .btn-margin {

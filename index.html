@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="col-md-2">
-        <button type="button" class="btn btn-success btn-size" @click="addMember">添加</button>
+        <button type="button" class="btn btn-success btn-add" @click="addMember">添加</button>
       </div>
     </div>
     <div class="row content">
@@ -121,6 +121,7 @@
             this.company.splice(index, 1);
           }
         }.bind(this));
+        this.save();
       }
     },
     filters: {
