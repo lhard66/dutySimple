@@ -38,12 +38,12 @@ var vm = new Vue({
     },
     remove: function(id) {
       this.company.forEach(function(element, index) {
-        console.log(this);
         if (id == element.id) {
           this.company.splice(index, 1);
+          this.saveCompany();
+          return;
         }
       }.bind(this));
-      this.saveCompany();
     }
   },
   filters: {
