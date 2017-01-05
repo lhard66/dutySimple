@@ -22,7 +22,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">值日管理</a>
+        <a class="navbar-brand" href="index.html">值日管理</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
@@ -37,6 +37,7 @@
   <div id="app" class="container content-top">
     <div class="row">
       <div class="col-md-7">
+        <span v-if="members.length<1">暂无内容</span>
         <label class="checkbox-inline" v-for="item in members" :id="item.id">
           <input type="checkbox" :id="item.id" :value="item.name" v-model="selmembers"> {{item.name}}({{item.dutytimes}})
         </label>
