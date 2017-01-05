@@ -25,9 +25,9 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li class="active"><a href="#">值日安排</a></li>
+          <li><a href="#about">成员管理</a></li>
+          <li><a href="#contact">成员添加</a></li>
         </ul>
       </div>
       <!--/.nav-collapse -->
@@ -68,9 +68,7 @@
       </div>
     </div>
   </div>
-  <script src="js/app.js"></script>
   <script>
-  var dataJson = [];
   var staff = [{
     "id": 1,
     "name": "张三",
@@ -88,57 +86,8 @@
     "name": "田六",
     "dutytimes": 2
   }];
-  var chinaWeek = ['日', '一', '二', '三', '四', '五', '六'];
-  var storage = window.localStorage;
-  var getId = function() {
-    var random = parseInt(Math.random() * 1000);
-    return '' + Date.now() + random;
-  }
-
-  var vm = new Vue({
-    el: '#app',
-    data: {
-      company: storage['duty_company'] ? JSON.parse(storage['duty_company']) : [],
-      members: staff,
-      selmembers: []
-    },
-    methods: {
-      save: function() {
-        storage['duty_company'] = JSON.stringify(this.company);
-      },
-      addMember: function() {
-        this.company.unshift({
-          "id": getId(),
-          "date": Date.now(),
-          "members": this.selmembers
-        });
-        this.save();
-      },
-      remove: function(id) {
-        this.company.forEach(function(element, index) {
-          console.log(this);
-          if (id == element.id) {
-            this.company.splice(index, 1);
-          }
-        }.bind(this));
-        this.save();
-      }
-    },
-    filters: {
-      dutydate: function(val) {
-        var dateObj = new Date(parseInt(val));
-        var month = dateObj.getMonth() + 1;
-        var date = dateObj.getDate();
-        var weekNum = dateObj.getDate();
-        var week = '日';
-        if (weekNum >= 0 && weekNum <= 6) {
-          var week = chinaWeek[weekNum];
-        }
-        return month + '月' + date + '日，周' + week;
-      }
-    }
-  })
   </script>
+  <script src="js/app.js"></script>
 </body>
 
 </html>
