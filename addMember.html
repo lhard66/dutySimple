@@ -4,6 +4,9 @@
 <head>
   <meta charset="utf-8">
   <title>成员添加</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/addmember.css">
+  <script src="node_modules/vue/dist/vue.js"></script>
 </head>
 
 <body>
@@ -25,8 +28,76 @@
           <li><a href="#contact">成员添加</a></li>
         </ul>
       </div>
-      <!--/.nav-collapse -->
     </div>
+  </nav>
+  <div id="app" class="container content-top">
+    <div class="row">
+      <div class="col-md-7">
+        <form class="form-horizontal" role="form" v-on:submit.prevent="addmember">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">工号：</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputNum" v-model="num" placeholder="请输入工号">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">姓名：</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputName" v-model="name" placeholder="请输入姓名">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-2">
+              <button type="submit" class="btn btn-default">添加成员</button>
+            </div>
+            <div class="col-sm-8">
+              <span class="error">{{info}}</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+  var getId = function() {
+    var random = parseInt(Math.random() * 100);
+    return '' + Date.now() + random;
+  }
+  var storage = window.localStorage;
+  var members = storage['duty_members'] ? JSON.parse(storage['duty_members']) : [];
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      members: members,
+      num: '',
+      name: '',
+      info: ''
+    },
+    methods: {
+      save: function() {
+        storage['duty_members'] = JSON.stringify(vm.members);
+      },
+      addmember: function() {
+        //数据合法性验证
+        var info = '';
+        if (vm.num == '' || vm.name == '') {
+          vm.info = '用户名或密码不能为空！'
+          return;
+        }
+        members.push({
+          "id": getId(),
+          "num": vm.num,
+          "name": vm.name,
+          "dutytimes": 0
+        });
+        vm.save();
+        vm.num = '';
+        vm.name = '';
+        vm.info = '';
+      }
+    }
+  });
+  </script>
 </body>
 
 </html>

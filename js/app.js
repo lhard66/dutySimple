@@ -9,12 +9,15 @@ var vm = new Vue({
   el: '#app',
   data: {
     company: storage['duty_company'] ? JSON.parse(storage['duty_company']) : [],
-    members: staff,
+    members: storage['duty_members'] ? JSON.parse(storage['duty_members']) : [],
     selmembers: []
   },
   methods: {
-    save: function() {
+    saveCompany: function() {
       storage['duty_company'] = JSON.stringify(this.company);
+    },
+    saveMember: function() {
+      storage['duty_members'] = JSON.stringify(this.members);
     },
     addMember: function() {
       this.company.unshift({
@@ -30,7 +33,8 @@ var vm = new Vue({
           }
         }
       });
-      this.save();
+      this.saveCompany();
+      this.saveMember();
     },
     remove: function(id) {
       this.company.forEach(function(element, index) {
@@ -39,7 +43,7 @@ var vm = new Vue({
           this.company.splice(index, 1);
         }
       }.bind(this));
-      this.save();
+      this.saveCompany();
     }
   },
   filters: {

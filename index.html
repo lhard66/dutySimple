@@ -36,11 +36,6 @@
   <div id="app" class="container content-top">
     <div class="row">
       <div class="col-md-7">
-        <!-- <select multiple class="form-control" v-model="selmembers">
-          <option v-for="item in members" :id="item.id">
-            {{item.name}}，已值日{{item.dutytimes}}次
-          </option>
-        </select> -->
         <label class="checkbox-inline" v-for="item in members" :id="item.id">
           <input type="checkbox" :id="item.id" :value="item.name" v-model="selmembers"> {{item.name}}({{item.dutytimes}})
         </label>
