@@ -34,25 +34,27 @@
       <!--/.nav-collapse -->
     </div>
   </nav>
-  <div id="app" class="container content-top">
+  <div id="app" v-cloak class="container content-top">
     <div class="row">
-      <div class="col-md-7">
+      <div class="col-md-7 col-md-offset-1">
         <span v-if="members.length<1">暂无内容</span>
-        <label class="checkbox-inline" v-for="item in members" :id="item.id">
-          <input type="checkbox" :id="item.id" :value="item.name" v-model="selmembers"> {{item.name}}({{item.dutytimes}})
+        <label class="checkbox-inline" v-for="item in members">
+          <input type="checkbox" :value="item.name" v-model="selmembers"> {{item.name}}({{item.dutytimes}})
         </label>
-        <div class="info">
-          <transition-group enter-active-class="animated zoomIn" leave-active-class="animated zoomOut">
-            <span class="label label-primary" v-for="(name,index) in selmembers" :key="index">{{name}}</span>
-          </transition-group>
-        </div>
       </div>
       <div class="col-md-2">
         <button type="button" class="btn btn-success btn-add" @click="addMember">添加</button>
       </div>
     </div>
+    <div class="row info">
+      <div class="col-md-9 col-md-offset-1">
+        <transition-group enter-active-class="animated zoomIn" leave-active-class="animated zoomOut">
+          <span class="label label-primary" v-for="(name,index) in selmembers" :key="index">{{name}}</span>
+        </transition-group>
+      </div>
+    </div>
     <div class="row content">
-      <div class="col-md-9">
+      <div class="col-md-9 col-md-offset-1">
         <transition-group enter-active-class="animated fadeInDown" leave-active-class="animated bounceOutRight">
           <div class="panel panel-default" v-for="item in company" :key="item.id">
             <div class="panel-heading">

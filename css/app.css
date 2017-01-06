@@ -11,10 +11,11 @@ body {
 }
 
 .btn-add {
-  width: 120px;
-  height: 60px;
+  width: 80px;
+  float: right;
+  /*height: 60px;
   position: relative;
-  right: -44px;
+  right: -44px;*/
 }
 
 .btn-margin {
@@ -37,4 +38,8 @@ body {
   position: relative;
   top: -23px;
   right: -6px;
+}
+
+[v-cloak] {
+  display: none;
 }

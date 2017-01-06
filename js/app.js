@@ -35,6 +35,8 @@ var vm = new Vue({
       });
       this.saveCompany();
       this.saveMember();
+      //重置多选按钮
+      this.selmembers = [];
     },
     remove: function(id) {
       this.company.forEach(function(element, index) {
